@@ -7,7 +7,7 @@ import { photoLikesRoutes } from "./photos/photo_likes.routes.js";
 import { slotRoutes } from "./slot_history/slot_history.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.use(cors({
   origin: 'http://localhost:5173'
