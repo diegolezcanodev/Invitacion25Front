@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+/* Para usar este estilo:
+<div className="bg-gradient-135">
+  {}
+</div>
+ */
