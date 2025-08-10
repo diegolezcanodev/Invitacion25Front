@@ -8,13 +8,13 @@ import {
 // Controllers for Photo Likes
 
 export const getPhoto_likes = async (req, res) => {
-  const likes = await getAll(req.params.idPhoto);
+  const likes = await getAll(req.params.id);
   if (!likes || likes.length === 0) {
     const error = new Error("No existen likes cargados para esa foto.");
     error.status = 404;
     throw error;
   }
-  const count = await countLikes(req.params.idPhoto);
+  const count = await countLikes(req.params.id); // Corregido: usar req.params.id
   res.json({
     count,
     likes,
@@ -22,11 +22,17 @@ export const getPhoto_likes = async (req, res) => {
 };
 
 export const createPhoto_like = async (req, res) => {
-  const newLike = await createOne(req.params.idPhoto, req.body);
+  // Crear el objeto data con user_hash desde los parámetros
+  const data = {
+    user_hash: req.params.userHash
+  };
+  
+  const newLike = await createOne(req.params.id, data);
   res.status(201).json(newLike);
 };
 
 export const deletePhoto_like = async (req, res) => {
-  await deleteOne(req.params);
+  // Pasar tanto el idPhoto como el userHash desde los parámetros
+  await deleteOne(req.params.id, req.params.userHash);
   res.status(200).json({ message: "Like eliminado correctamente." });
 };

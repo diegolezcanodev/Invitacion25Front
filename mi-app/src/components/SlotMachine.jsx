@@ -139,7 +139,7 @@ const SlotMachine = ({ isDarkMode }) => {
         }`}
       >
         <div className="p-6">
-          <div className="text-center mb-6">
+          <div className="text-center mt-5 mb-6">
             <h2
               className={`text-2xl font-bold flex items-center justify-center gap-2 transition-colors duration-500 ${
                 isDarkMode ? "text-purple-300" : "text-purple-800"

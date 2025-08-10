@@ -1,34 +1,54 @@
-import axios from "axios";
+const API_URL = "http://localhost:3000"; // Ajusta según tu configuración
 
-export const getLikesByPhoto = async (id) => {
+export const getLikesByPhoto = async (photoId) => {
   try {
-    const idPhoto = parseInt(id, 10);
-    const response = await axios.get(`http://localhost:4000/photo/${idPhoto}/likes`);
-    return response.data;
+    const response = await fetch(`${API_URL}/photo/${photoId}/likes`);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    return await response.json();
   } catch (error) {
-    console.error("Error al obtener los likes de la photo:", error);
+    console.error("Error obteniendo likes:", error);
     throw error;
   }
 };
 
-export const createLike = async (id) => {
+export const createLike = async (photoId, userHash) => {
   try {
-    const idPhoto = parseInt(id, 10);
-    const response = await axios.post(`http://localhost:4000/photo/${idPhoto}/like`);
-    return response.data;
+    const response = await fetch(`${API_URL}/photo/${photoId}/like/${userHash}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    
+    return await response.json();
   } catch (error) {
-    console.error("Error al likear la photo:", error);
+    console.error("Error creando like:", error);
     throw error;
   }
 };
 
-export const deleteLike = async (id) => {
+export const deleteLike = async (photoId, userHash) => {
   try {
-    const idPhoto = parseInt(id, 10);
-    const response = await axios.delete(`http://localhost:4000/photo/${idPhoto}/like`);
-    return response.data;
+    const response = await fetch(`${API_URL}/photo/${photoId}/like/${userHash}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    
+    return await response.json();
   } catch (error) {
-    console.error("Error al deslikear la photo:", error);
+    console.error("Error eliminando like:", error);
     throw error;
   }
 };

@@ -17,14 +17,21 @@ const PhotoGallery = ({ isDarkMode }) => {
 
   // Generar hash único para el usuario (simulando identificación única)
   useEffect(() => {
-    const hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    setUserHash(hash);
+    // Intentar obtener userHash existente del localStorage, si no existe crear uno nuevo
+    let existingHash = localStorage.getItem('userHash');
+    if (!existingHash) {
+      existingHash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      localStorage.setItem('userHash', existingHash);
+    }
+    setUserHash(existingHash);
   }, []);
 
-  // Cargar fotos al montar el componente
+  // Cargar fotos cuando userHash esté disponible
   useEffect(() => {
-    loadPhotos();
-  }, []);
+    if (userHash) {
+      loadPhotos();
+    }
+  }, [userHash]);
 
   const loadPhotos = async () => {
     try {
@@ -40,6 +47,7 @@ const PhotoGallery = ({ isDarkMode }) => {
               userLiked: likesData.likes?.some(like => like.user_hash === userHash) || false
             };
           } catch (error) {
+            console.error(`Error cargando likes para foto ${photo.id}:`, error);
             return { ...photo, likes: 0, userLiked: false };
           }
         })
@@ -90,20 +98,25 @@ const PhotoGallery = ({ isDarkMode }) => {
   };
 
   const handleLike = async (photoId) => {
+    if (!userHash) {
+      console.error("UserHash no está disponible");
+      return;
+    }
+
     try {
       const photo = photos.find(p => p.id === photoId);
       
       if (photo.userLiked) {
         // Quitar like
-        await deleteLike(photoId);
+        await deleteLike(photoId, userHash);
         setPhotos(photos.map(p => 
           p.id === photoId 
-            ? { ...p, likes: p.likes - 1, userLiked: false }
+            ? { ...p, likes: Math.max(0, p.likes - 1), userLiked: false }
             : p
         ));
       } else {
         // Dar like
-        await createLike(photoId);
+        await createLike(photoId, userHash);
         setPhotos(photos.map(p => 
           p.id === photoId 
             ? { ...p, likes: p.likes + 1, userLiked: true }
@@ -142,11 +155,11 @@ const PhotoGallery = ({ isDarkMode }) => {
           onClick={() => setShowUploadForm(true)}
           className=" bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 outline-none ring-0 focus:outline-none focus:ring-0"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 mr-2">
-  <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-  <path fill-rule="evenodd" d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
-</svg>
- Subir Nueva Foto
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5 mr-2">
+            <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+            <path fillRule="evenodd" d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
+          </svg>
+          Subir Nueva Foto
         </Button>
       </div>
 
@@ -154,10 +167,11 @@ const PhotoGallery = ({ isDarkMode }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {photos.length === 0 ? (
           <div className="col-span-full text-center py-12">
+            <div className="text-6xl mb-4">📷</div>
             <p className={`text-xl transition-colors duration-500 ${
               isDarkMode ? "text-gray-400" : "text-gray-600"
             }`}>
-              Subite una foto que no hay x ahora!
+              ¡Subí una foto que no hay por ahora!
             </p>
           </div>
         ) : (
@@ -258,6 +272,7 @@ const PhotoGallery = ({ isDarkMode }) => {
                     </p>
                   </div>
                 </div>
+
                 
               </div>
             </Card>
@@ -274,14 +289,18 @@ const PhotoGallery = ({ isDarkMode }) => {
             }`}
           >
             <div className="grid place-items-center">
-            <h3
-              className={`text-xl font-bold mb-4 text-center transition-colors duration-500 ${
-                isDarkMode ? "text-blue-300" : "text-blue-800"
-              }`}
-            >
-              
-             Subir Nueva Foto
-            </h3>
+              <h3
+                className={`text-xl font-bold mb-4 text-center transition-colors duration-500 ${
+                  isDarkMode ? "text-blue-300" : "text-blue-800"
+                }`}
+              >
+                📷 Subir Nueva Foto
+              </h3>
+              <p className={`text-center mb-4 transition-colors duration-500 ${
+                isDarkMode ? "text-blue-400" : "text-blue-600"
+              }`}>
+                ¡Comparte tus mejores momentos!
+              </p>
             </div>
 
             <div className="space-y-4">
@@ -358,7 +377,7 @@ const PhotoGallery = ({ isDarkMode }) => {
                 disabled={!selectedFile || !uploadData.author.trim() || !uploadData.caption.trim() || isUploading}
                 className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white outline-none ring-0 focus:outline-none focus:ring-0"
               >
-                {isUploading ? "Subiendo..." : "Subir Foto"}
+                {isUploading ? "Subiendo..." : "✅ Subir Foto"}
               </Button>
             </div>
           </div>
