@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000"; // Ajusta según tu configuración
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 export const getLikesByPhoto = async (photoId) => {
   try {
