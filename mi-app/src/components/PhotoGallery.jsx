@@ -138,11 +138,6 @@ const PhotoGallery = ({ isDarkMode }) => {
                 }`}>
                     Galería de Fotos
                 </h2>
-                <p className={`text-lg mb-6 transition-colors duration-500 ${
-                    isDarkMode ? "text-blue-400" : "text-blue-600"
-                }`}>
-                    Comparte tus mejores momentos
-                </p>
       <Button
           onClick={() => setShowUploadForm(true)}
           className=" bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 outline-none ring-0 focus:outline-none focus:ring-0"
@@ -342,7 +337,7 @@ const PhotoGallery = ({ isDarkMode }) => {
             </div>
 
             <div>
-                <label className={`block text-sm font-medium mb-2 transition-colors duration-500 ${
+                <label className={`block text-sm font-medium mt-4 mb-2 transition-colors duration-500 ${
                   isDarkMode ? "text-gray-300" : "text-gray-700"
                 }`}>
                   Descripción
