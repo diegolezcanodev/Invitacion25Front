@@ -191,14 +191,9 @@ function Inicio() {
               className="bg-white/90 hover:bg-white text-green-600 hover:text-green-700 font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 outline-none ring-0 focus:outline-none focus:ring-0"
             >
               <div className="flex items-center gap-3">
-                {/* Icono de Google Calendar */}
-                <svg width="20" height="20" viewBox="0 0 24 24" className="flex-shrink-0">
-                  <path fill="#4285F4" d="M19.5 3h-1V1.5C18.5.673 17.827 0 17 0s-1.5.673-1.5 1.5V3h-7V1.5C8.5.673 7.827 0 7 0S5.5.673 5.5 1.5V3h-1A2.5 2.5 0 0 0 2 5.5v13A2.5 2.5 0 0 0 4.5 21h15a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 19.5 3z"/>
-                  <path fill="#34A853" d="M2 8.5h20v1H2z"/>
-                  <path fill="#EA4335" d="M7 12h2v2H7zm3 0h2v2h-2zm3 0h2v2h-2z"/>
-                  <path fill="#FBBC04" d="M7 15h2v2H7zm3 0h2v2h-2zm3 0h2v2h-2z"/>
-                </svg>
-                <span className="font-bold">Agregar al Calendario</span>
+               
+            
+                <span className="font-bold">Agregar a Google Calendar</span>
               </div>
             </Button>
           </div>
@@ -448,18 +443,20 @@ function Inicio() {
       </main>
 
       {/* Footer */}
-      <footer className={`py-8 text-center w-full transition-colors duration-500 ${
-        isDarkMode
-          ? "bg-gradient-to-r from-green-800 to-emerald-800"
-          : "bg-gradient-to-r from-green-800 to-emerald-800"
-      } text-white`}>
-        <p className="text-lg">¡Más vale que vengan!</p>
-        <p className={`mt-2 transition-colors duration-500 ${
-          isDarkMode ? "text-green-300" : "text-green-200"
-        }`}>
-          Este año me lucí eh
-        </p>
-      </footer>
+<footer className={`py-8 text-center w-full transition-colors duration-500 ${
+  isDarkMode
+    ? "bg-gradient-to-r from-green-800 to-emerald-800"
+    : "bg-gradient-to-r from-green-800 to-emerald-800"
+} text-white`}>
+  <p className="text-lg">¡Más vale que vengan!</p>
+  <p className={`mt-2 transition-colors duration-500 ${
+    isDarkMode ? "text-green-300" : "text-green-200"
+  }`}>
+    Este año me lucí eh
+  </p>
+
+ 
+</footer>
     </div>
   );
 }

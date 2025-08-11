@@ -288,16 +288,11 @@ const PhotoGallery = ({ isDarkMode }) => {
             <div className="grid place-items-center">
               <h3
                 className={`text-xl font-bold mb-4 text-center transition-colors duration-500 ${
-                  isDarkMode ? "text-blue-300" : "text-blue-800"
+                  isDarkMode ? "text-blue-300" : "text-green-800"
                 }`}
               >
-                📷 Subir Nueva Foto
+                Subir Nueva Foto
               </h3>
-              <p className={`text-center mb-4 transition-colors duration-500 ${
-                isDarkMode ? "text-blue-400" : "text-blue-600"
-              }`}>
-                ¡Comparte tus mejores momentos!
-              </p>
             </div>
 
             <div className="space-y-4">
@@ -380,7 +375,7 @@ const PhotoGallery = ({ isDarkMode }) => {
                 disabled={!selectedFile || !uploadData.author.trim() || !uploadData.caption.trim() || !uploadData.caption.trim()|| isUploading}
                 className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white outline-none ring-0 focus:outline-none focus:ring-0"
               >
-                {isUploading ? "Subiendo..." : "✅ Subir Foto"}
+                {isUploading ? "Subiendo..." : "Subir Foto"}
               </Button>
             </div>
             </div>
