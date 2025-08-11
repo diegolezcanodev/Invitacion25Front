@@ -5,6 +5,8 @@ import {
   deleteOne,
   updateOne,
 } from "./photos.repository.js";
+import fs from 'fs/promises';
+import path from 'path';
 
 // Controllers for Photos
 
@@ -29,12 +31,35 @@ export const getPhoto = async (req, res, next) => {
 };
 
 export const createPhoto = async (req, res) => {
-  const newPhoto = await createOne(req.body);
+  // Verificar que se subió un archivo
+  if (!req.file) {
+    const error = new Error("No se subió ninguna imagen.");
+    error.status = 400;
+    throw error;
+  }
+
+  // Verificar que los datos requeridos estén presentes
+  if (!req.body.caption || !req.body.author) {
+    const error = new Error("Caption y author son requeridos.");
+    error.status = 400;
+    throw error;
+  }
+
+  const newPhoto = await createOne(req.body, req.file);
   res.status(201).json(newPhoto);
 };
 
 export const deletePhoto = async (req, res) => {
-  await deleteOne(req.params.id);
+  const { deletedPhoto, filename } = await deleteOne(req.params.id);
+  
+  // Intentar eliminar el archivo físico
+  try {
+    const filePath = path.join(process.cwd(), 'uploads', filename);
+    await fs.unlink(filePath);
+  } catch (error) {
+    console.warn(`No se pudo eliminar el archivo ${filename}:`, error.message);
+  }
+  
   res.status(200).json({ message: "Photo eliminada correctamente." });
 };
 

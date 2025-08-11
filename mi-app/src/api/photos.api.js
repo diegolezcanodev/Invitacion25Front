@@ -10,9 +10,20 @@ export const getPhotos = async () => {
   }
 }
 
-export const createPhoto = async (photo) => {
+export const createPhoto = async (photoData, imageFile) => {
   try {
-    const response = await axios.post(`http://localhost:4000/photo`, photo);
+    // Crear FormData para enviar archivo + datos
+    const formData = new FormData();
+    formData.append('image', imageFile); // El archivo de imagen
+    formData.append('caption', photoData.caption);
+    formData.append('author', photoData.author);
+
+    const response = await axios.post(`http://localhost:4000/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    
     return response.data;
   } catch (error) {
     console.error("Error creating photo:", error);
