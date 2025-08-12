@@ -16,12 +16,12 @@ export const getSlot_history = async () => {
 
 export const createSlot_history = async (slot) => {
   try {
-    console.log('Making request to:', `${API_URL}/slot_history/`); // Debug
-    const response = await axios.post(`${API_URL}/slot_history/`, slot);
+    console.log('Making request to:', `${API_URL}/slot_history`); // Debug
+    const response = await axios.post(`${API_URL}/slot_history`, slot);
     return response.data;
   } catch (error) {
     console.error("Error creating slot history register:", error);
-    console.error("Request URL:", `${API_URL}/slot_history/`);
+    console.error("Request URL:", `${API_URL}/slot_history`);
     console.error("Full error details:", error.response || error);
     throw error;
   }
