@@ -1,21 +1,20 @@
+// This is your Prisma schema file
 generator client {
   provider = "prisma-client-js"
-  env = ".env"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model photo_likes {
-  id         Int       @id @default(autoincrement())
-  photo_id   Int
-  user_hash  String    @db.VarChar(255)
-  created_at DateTime? @default(now()) @db.Timestamp(0)
-  photos     photos    @relation(fields: [photo_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "photo_likes_ibfk_1")
-
-  @@unique([photo_id, user_hash], map: "unique_photo_user")
+model slot_history {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  credits    Int
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  
+  @@map("slot_history")
 }
 
 model photos {
@@ -26,14 +25,25 @@ model photos {
   size          Int
   caption       String        @db.Text
   author        String        @db.VarChar(255)
-  likes         Int?          @default(0)
-  created_at    DateTime?     @default(now()) @db.Timestamp(0)
+  likes         Int           @default(0)
+  created_at    DateTime      @default(now()) @db.Timestamp(6)
+  
+  // Relación con likes
   photo_likes   photo_likes[]
+  
+  @@map("photos")
 }
 
-model slot_history {
-  id         Int       @id @default(autoincrement())
-  name       String    @db.VarChar(255)
-  credits    Int
-  created_at DateTime? @default(now()) @db.Timestamp(0)
+model photo_likes {
+  id         Int      @id @default(autoincrement())
+  photo_id   Int
+  user_hash  String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  
+  // Relación con photos
+  photo      photos   @relation(fields: [photo_id], references: [id], onDelete: Cascade)
+  
+  // Constraint único para evitar likes duplicados
+  @@unique([photo_id, user_hash], map: "unique_photo_user")
+  @@map("photo_likes")
 }

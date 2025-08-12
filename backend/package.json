@@ -21,9 +21,11 @@
     "helmet": "^8.1.0",
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^4.0.0",
-    "mysql2": "^3.14.3"
+    "mysql2": "^3.14.3",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@types/pg": "^8.15.5",
     "nodemon": "^3.1.10",
     "prisma": "^6.13.0"
   }
