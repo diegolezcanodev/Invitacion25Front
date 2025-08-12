@@ -172,8 +172,8 @@ const SlotMachine = ({ isDarkMode }) => {
                   size="sm"
                   className={`outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
                     isDarkMode
-                      ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700"
-                      : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200"
+                      ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700 dark:bg-purple-800 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-700"
+                      : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200 dark:bg-purple-100 dark:border-purple-300 dark:text-purple-700 dark:hover:bg-purple-200"
                   }`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 mr-2">
@@ -187,8 +187,8 @@ const SlotMachine = ({ isDarkMode }) => {
                   size="sm"
                   className={`outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
                     isDarkMode
-                      ? "bg-green-800 border-green-600 text-green-300 hover:bg-green-700"
-                      : "bg-green-100 border-green-300 text-green-700 hover:bg-green-200"
+                      ? "bg-green-800 border-green-600 text-green-300 hover:bg-green-700 dark:bg-green-800 dark:border-green-600 dark:text-green-300 dark:hover:bg-green-700"
+                      : "bg-green-100 border-green-300 text-green-700 hover:bg-green-200 dark:bg-green-100 dark:border-green-300 dark:text-green-700 dark:hover:bg-green-200"
                   }`}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 mr-2">
@@ -213,8 +213,8 @@ const SlotMachine = ({ isDarkMode }) => {
                     size="sm"
                     className={`outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
                       isDarkMode
-                        ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700 disabled:opacity-50"
-                        : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200 disabled:opacity-50"
+                        ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700 disabled:opacity-50 dark:bg-purple-800 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-700"
+                        : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200 disabled:opacity-50 dark:bg-purple-100 dark:border-purple-300 dark:text-purple-700 dark:hover:bg-purple-200"
                     }`}
                   >
                     -
@@ -232,8 +232,8 @@ const SlotMachine = ({ isDarkMode }) => {
                     size="sm"
                     className={`outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
                       isDarkMode
-                        ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700 disabled:opacity-50"
-                        : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200 disabled:opacity-50"
+                        ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700 disabled:opacity-50 dark:bg-purple-800 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-700"
+                        : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200 disabled:opacity-50 dark:bg-purple-100 dark:border-purple-300 dark:text-purple-700 dark:hover:bg-purple-200"
                     }`}
                   >
                     +
@@ -251,8 +251,8 @@ const SlotMachine = ({ isDarkMode }) => {
                     size="sm"
                     className={`text-sm outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
                       isDarkMode
-                        ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700 disabled:opacity-50"
-                        : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200 disabled:opacity-50"
+                        ? "bg-purple-800 border-purple-600 text-purple-300 hover:bg-purple-700 disabled:opacity-50 dark:bg-purple-800 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-700"
+                        : "bg-purple-100 border-purple-300 text-purple-700 hover:bg-purple-200 disabled:opacity-50 dark:bg-purple-100 dark:border-purple-300 dark:text-purple-700 dark:hover:bg-purple-200"
                     }`}
                   >
                     {amount}
@@ -264,8 +264,8 @@ const SlotMachine = ({ isDarkMode }) => {
                   size="sm"
                   className={`text-sm font-bold outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
                     isDarkMode
-                      ? "bg-yellow-800 border-yellow-600 text-yellow-300 hover:bg-yellow-700 disabled:opacity-50"
-                      : "bg-yellow-100 border-yellow-500 text-yellow-700 hover:bg-yellow-200 disabled:opacity-50"
+                      ? "bg-yellow-800 border-yellow-600 text-yellow-300 hover:bg-yellow-700 disabled:opacity-50 dark:bg-yellow-800 dark:border-yellow-600 dark:text-yellow-300 dark:hover:bg-yellow-700"
+                      : "bg-yellow-100 border-yellow-500 text-yellow-700 hover:bg-yellow-200 disabled:opacity-50 dark:bg-yellow-100 dark:border-yellow-500 dark:text-yellow-700 dark:hover:bg-yellow-200"
                   }`}
                 >
                   ⚡ MAX

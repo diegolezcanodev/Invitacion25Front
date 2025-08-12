@@ -359,8 +359,8 @@ const PhotoGallery = ({ isDarkMode }) => {
                 onClick={() => setShowUploadForm(false)}
                 className={`flex-1 outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
                   isDarkMode
-                    ? "bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600"
-                    : "bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200"
+                    ? "bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600"
+                    : "bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200 dark:bg-gray-100 dark:border-gray-300 dark:text-gray-700 dark:hover:bg-gray-200"
                 }`}
               >
                 Cancelar
