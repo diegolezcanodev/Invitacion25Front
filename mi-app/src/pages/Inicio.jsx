@@ -208,7 +208,7 @@ function Inicio() {
             <Card className={`max-w-4xl mx-auto transition-colors duration-500 ${
                 isDarkMode 
                     ? "bg-gray-800 border-green-700" 
-                    : "bg-white border-green-200"
+                    : "bg-white border-green-200 dark:bg-white dark:border-green-200"
             }`}>
                 <div className="text-center p-6">
                     <h2 className={`text-4xl font-bold mb-3 transition-colors duration-500 ${
@@ -287,7 +287,7 @@ function Inicio() {
             <Card className={`max-w-4xl mx-auto transition-colors duration-500 ${
                 isDarkMode 
                     ? "bg-gray-800 border-green-700" 
-                    : "bg-white border-green-200"
+                    : "bg-white border-green-200 dark:bg-white dark:border-green-200"
             }`}>
                 <div className="text-center p-6">
                     <h2 className={`flex items-center justify-center gap-2 text-4xl font-bold mb-2 transition-colors duration-500 ${
@@ -379,7 +379,7 @@ function Inicio() {
                   {/* Content */}
                   <div className="ml-6 flex-1">
                     <Card className={`shadow-lg hover:shadow-xl transition-all duration-300 ${
-                      isDarkMode ? "bg-gray-800 border-green-700" : "bg-white border-green-200"
+                      isDarkMode ? "bg-gray-800 border-green-700" : "bg-white border-green-200 dark:bg-white dark:border-green-200"
                     }`}>
                       <div className="p-6">
                         <div className="flex items-center justify-between mb-2">
