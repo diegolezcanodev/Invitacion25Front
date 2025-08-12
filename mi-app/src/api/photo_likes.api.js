@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://tu-backend-xxxx.up.railway.app'
+  : 'http://localhost:4000';
 
 
 export const getLikesByPhoto = async (photoId) => {
