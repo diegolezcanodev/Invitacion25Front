@@ -1,7 +1,4 @@
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'invitacion25front-production.up.railway.app'
-  : 'http://localhost:4000';
-
+const API_URL = 'invitacion25front-production.up.railway.app';
 
 export const getLikesByPhoto = async (photoId) => {
   try {
