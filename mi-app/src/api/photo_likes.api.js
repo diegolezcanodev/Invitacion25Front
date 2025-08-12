@@ -1,5 +1,5 @@
 const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://tu-backend-xxxx.up.railway.app'
+  ? 'invitacion25front-production.up.railway.app'
   : 'http://localhost:4000';
 
 
