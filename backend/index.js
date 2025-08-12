@@ -17,7 +17,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = process.env.FRONTEND_URL || "https://invitacion25-front.vercel.app";
 const USE_CLOUD = process.env.USE_CLOUD === "true";
 
 // Configuración de CORS
