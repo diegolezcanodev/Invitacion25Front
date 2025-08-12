@@ -10,6 +10,6 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "invitacion25front-production.up.railway.app"
+    "VITE_API_URL": "https://invitacion25front-production.up.railway.app"
   }
 }

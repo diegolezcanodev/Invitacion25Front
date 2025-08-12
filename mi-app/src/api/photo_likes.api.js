@@ -1,4 +1,4 @@
-const API_URL = 'invitacion25front-production.up.railway.app';
+const API_URL = import.meta.env.VITE_API_URL || 'https://invitacion25front-production.up.railway.app';
 
 export const getLikesByPhoto = async (photoId) => {
   try {
