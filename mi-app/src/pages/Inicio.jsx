@@ -188,7 +188,7 @@ function Inicio() {
           <div className="flex justify-center">
             <Button
               onClick={addDiegoBirthdayToCalendar}
-              className="bg-white/90 hover:bg-white text-green-600 hover:text-green-700 font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 outline-none ring-0 focus:outline-none focus:ring-0"
+              className="bg-white/90 hover:bg-white dark:bg-white/90 dark:hover:bg-white text-green-600 hover:text-green-700 font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 outline-none ring-0 focus:outline-none focus:ring-0"
             >
               <div className="flex items-center gap-3">
                
