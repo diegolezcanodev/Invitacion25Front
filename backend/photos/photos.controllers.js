@@ -5,12 +5,12 @@ import {
   deleteOne,
   updateOne,
 } from "./photos.repository.js";
-import fs from 'fs/promises';
-import path from 'path';
+import { v2 as cloudinary } from "cloudinary";
 
 // Controllers for Photos
 
 export const getPhotos = async (req, res) => {
+  console.log('📸 Getting all photos');
   const photos = await getAll();
   if (!photos || photos.length === 0) {
     const error = new Error("No existen photos cargadas aún.");
@@ -21,6 +21,7 @@ export const getPhotos = async (req, res) => {
 };
 
 export const getPhoto = async (req, res, next) => {
+  console.log('📸 Getting photo with ID:', req.params.id);
   const photo = await getOne(req.params.id);
   if (!photo) {
     const error = new Error("Photo no encontrada.");
@@ -31,6 +32,9 @@ export const getPhoto = async (req, res, next) => {
 };
 
 export const createPhoto = async (req, res) => {
+  console.log('📥 Creating photo with data:', req.body);
+  console.log('📁 File info:', req.file ? 'File received' : 'No file');
+  
   // Verificar que se subió un archivo
   if (!req.file) {
     const error = new Error("No se subió ninguna imagen.");
@@ -45,25 +49,51 @@ export const createPhoto = async (req, res) => {
     throw error;
   }
 
-  const newPhoto = await createOne(req.body, req.file);
-  res.status(201).json(newPhoto);
+  try {
+    const newPhoto = await createOne(req.body, req.file);
+    console.log('✅ Photo created successfully:', newPhoto.id);
+    res.status(201).json(newPhoto);
+  } catch (error) {
+    console.error('❌ Error creating photo:', error);
+    throw error;
+  }
 };
 
 export const deletePhoto = async (req, res) => {
-  const { deletedPhoto, filename } = await deleteOne(req.params.id);
+  console.log('🗑️ Deleting photo with ID:', req.params.id);
   
-  // Intentar eliminar el archivo físico
   try {
-    const filePath = path.join(process.cwd(), 'uploads', filename);
-    await fs.unlink(filePath);
+    const { deletedPhoto, cloudinaryId } = await deleteOne(req.params.id);
+    
+    // Si tiene cloudinary_id, eliminar de Cloudinary
+    if (cloudinaryId) {
+      console.log('☁️ Deleting from Cloudinary:', cloudinaryId);
+      try {
+        await cloudinary.uploader.destroy(cloudinaryId);
+        console.log('✅ Deleted from Cloudinary successfully');
+      } catch (cloudinaryError) {
+        console.warn(`⚠️ No se pudo eliminar de Cloudinary ${cloudinaryId}:`, cloudinaryError.message);
+      }
+    }
+    
+    console.log('✅ Photo deleted successfully');
+    res.status(200).json({ message: "Photo eliminada correctamente." });
   } catch (error) {
-    console.warn(`No se pudo eliminar el archivo ${filename}:`, error.message);
+    console.error('❌ Error deleting photo:', error);
+    throw error;
   }
-  
-  res.status(200).json({ message: "Photo eliminada correctamente." });
 };
 
 export const updatePhoto = async (req, res) => {
-  const updatedPhoto = await updateOne(req.params.id, req.body);
-  res.status(200).json(updatedPhoto);
+  console.log('📝 Updating photo with ID:', req.params.id);
+  console.log('📝 Update data:', req.body);
+  
+  try {
+    const updatedPhoto = await updateOne(req.params.id, req.body);
+    console.log('✅ Photo updated successfully');
+    res.status(200).json(updatedPhoto);
+  } catch (error) {
+    console.error('❌ Error updating photo:', error);
+    throw error;
+  }
 };
