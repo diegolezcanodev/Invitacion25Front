@@ -1,3 +1,4 @@
+//const symbols = ["💚", "🥊", "🎸", "🦁", "🫦", "🍾", "🍠"];
 import { useState, useEffect } from "react";
 import { Button } from "flowbite-react";
 import { getSlot_history, createSlot_history } from "../api/slot_history.api.js";
@@ -43,6 +44,12 @@ const SlotMachine = ({ isDarkMode }) => {
 
   const setMaxBet = () => {
     setBet(credits);
+  };
+
+  const resetCredits = () => {
+    setCredits(1000);
+    setBet(10);
+    setLastWin(0);
   };
 
   const spin = () => {
@@ -165,6 +172,20 @@ const SlotMachine = ({ isDarkMode }) => {
                 </svg>
                 {credits} créditos
               </div>
+
+               <Button
+                  onClick={resetCredits}
+                  size="sm"
+                  className={`outline-none ring-0 focus:outline-none focus:ring-0 transition-colors duration-500 ${
+                    isDarkMode
+                      ? "bg-blue-800 border-blue-600 text-blue-300 hover:bg-blue-700 dark:bg-blue-800 dark:border-blue-600 dark:text-blue-300 dark:hover:bg-blue-700"
+                      : "bg-blue-100 border-blue-300 text-blue-700 hover:bg-blue-200 dark:bg-blue-100 dark:border-blue-300 dark:text-blue-700 dark:hover:bg-blue-200"
+                  }`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                </Button>
 
               <div className="flex gap-2">
                 <Button
