@@ -16,6 +16,9 @@ export const getSlot_history = async () => {
 
 export const createSlot_history = async (slot) => {
   try {
+    console.log('🚀 Datos que se van a enviar:', slot); // <-- AÑADE ESTO
+    console.log('🚀 Tipo de datos:', typeof slot);
+
     console.log('Making request to:', `${API_URL}/slot_history`); // Debug
     const response = await axios.post(`${API_URL}/slot_history`, slot);
     return response.data;
