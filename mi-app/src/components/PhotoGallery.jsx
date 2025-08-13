@@ -151,7 +151,7 @@ const PhotoGallery = ({ isDarkMode }) => {
                 </h2>
                 <Button
                     onClick={() => setShowUploadForm(true)}
-                    className=" bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 outline-none ring-0 focus:outline-none focus:ring-0"
+                    className=" mb-7 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 outline-none ring-0 focus:outline-none focus:ring-0"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5 mr-2">
                         <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
@@ -177,8 +177,8 @@ const PhotoGallery = ({ isDarkMode }) => {
                                 key={photo.id}
                                 className={`overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 ${
                                     isDarkMode 
-                                        ? "bg-gray-800 border-blue-700" 
-                                        : "bg-white border-blue-200"
+                                        ? "bg-gray-800 border-blue-700 dark:bg-gray-800 dark:border-blue-700" 
+                                        : "bg-white border-blue-200 dark:bg-white dark:border-blue-200"
                                 }`}
                             >
                                 <div className="relative">
@@ -207,7 +207,7 @@ const PhotoGallery = ({ isDarkMode }) => {
                                     <div className="absolute top-2 right-2 flex gap-2">
                                         <Button
                                             size="sm"
-                                            className="bg-white/80 text-gray-700 hover:bg-white/90 p-2 outline-none ring-0 focus:outline-none focus:ring-0"
+                                            className="bg-white/80 text-gray-700 hover:bg-white/90 p-2 outline-none ring-0 focus:outline-none focus:ring-0 dark:bg-white/80 dark:text-gray-700 dark:hover:bg-white/90"
                                             onClick={() => {
                                                 const link = document.createElement('a');
                                                 link.href = getImageUrl(photo.url);
@@ -224,7 +224,7 @@ const PhotoGallery = ({ isDarkMode }) => {
                                         
                                         <Button
                                             size="sm"
-                                            className="bg-red-500/80 text-white hover:bg-red-600/90 p-2 outline-none ring-0 focus:outline-none focus:ring-0"
+                                            className="bg-red-500/80 dark:bg-red-500/80 text-white hover:bg-red-600/90 dark:hover:bg-red-600/90 p-2 outline-none ring-0 focus:outline-none focus:ring-0"
                                             onClick={() => {
                                                 const imageUrl = getImageUrl(photo.url);
                                                 if (navigator.share) {
