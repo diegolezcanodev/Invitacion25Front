@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Card } from "flowbite-react";
 import { getPhotos, createPhoto } from "../api/photos.api.js";
-import { getLikesByPhoto, createLike, deleteLike } from "../api/photo_likes.api.js";
 
 const PhotoGallery = ({ isDarkMode }) => {
     const [photos, setPhotos] = useState([]);
@@ -12,42 +11,28 @@ const PhotoGallery = ({ isDarkMode }) => {
         caption: ""
     });
     const [isUploading, setIsUploading] = useState(false);
-    const [likedPhotos, setLikedPhotos] = useState(new Set());
-    const [userHash, setUserHash] = useState("");
+    const [isLoadingPhotos, setIsLoadingPhotos] = useState(false);
 
     useEffect(() => {
-        const sessionHash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        setUserHash(sessionHash);
+        loadPhotos();
     }, []);
 
-    useEffect(() => {
-        if (userHash) {
-            loadPhotos();
-        }
-    }, [userHash]);
-
     const loadPhotos = async () => {
+        if (isLoadingPhotos) return;
+        
+        setIsLoadingPhotos(true);
         try {
+            console.log("Cargando fotos...");
             const data = await getPhotos();
-            const photosWithLikes = await Promise.all(
-                data.map(async (photo) => {
-                    try {
-                        const likesData = await getLikesByPhoto(photo.id);
-                        return {
-                            ...photo,
-                            likes: likesData.count || 0,
-                            userLiked: likesData.likes?.some(like => like.user_hash === userHash) || false
-                        };
-                    } catch (error) {
-                        console.error(`Error cargando likes para foto ${photo.id}:`, error);
-                        return { ...photo, likes: 0, userLiked: false };
-                    }
-                })
-            );
-            setPhotos(photosWithLikes);
+            setPhotos(data);
         } catch (error) {
             console.error("Error cargando fotos:", error);
+            if (error.response?.status === 429) {
+                alert("Servidor saturado. Por favor espera unos segundos y recarga la página.");
+            }
             setPhotos([]);
+        } finally {
+            setIsLoadingPhotos(false);
         }
     };
 
@@ -82,33 +67,6 @@ const PhotoGallery = ({ isDarkMode }) => {
             alert("Error al subir la foto. Por favor intenta de nuevo.");
         } finally {
             setIsUploading(false);
-        }
-    };
-
-    const handleLike = async (photoId) => {
-        if (!userHash) {
-            console.error("UserHash no está disponible");
-            return;
-        }
-        try {
-            const photo = photos.find(p => p.id === photoId);
-            if (photo.userLiked) {
-                await deleteLike(photoId, userHash);
-                setPhotos(photos.map(p =>
-                    p.id === photoId
-                        ? { ...p, likes: Math.max(0, p.likes - 1), userLiked: false }
-                        : p
-                ));
-            } else {
-                await createLike(photoId, userHash);
-                setPhotos(photos.map(p =>
-                    p.id === photoId
-                        ? { ...p, likes: p.likes + 1, userLiked: true }
-                        : p
-                ));
-            }
-        } catch (error) {
-            console.error("Error procesando like:", error);
         }
     };
 
@@ -151,7 +109,7 @@ const PhotoGallery = ({ isDarkMode }) => {
                 </h2>
                 <Button
                     onClick={() => setShowUploadForm(true)}
-                    className=" mb-7 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 outline-none ring-0 focus:outline-none focus:ring-0"
+                    className=" bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 py-3 outline-none ring-0 focus:outline-none focus:ring-0"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5 mr-2">
                         <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />

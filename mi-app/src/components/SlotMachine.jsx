@@ -14,7 +14,7 @@ const SlotMachine = ({ isDarkMode }) => {
   const [showHistory, setShowHistory] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const symbols = ["💚", "🥊", "🎸", "🌶️", "🦫", "☝🏻", "👀", "🦁", "🫦", "🍾", "🍠"];
+  const symbols = ["💚", "🥊", "🎸", "🌶️", "👀", "🦁", "🫦", "🍾", "🍠"];
 
   // Cargar historial desde la API
   useEffect(() => {
