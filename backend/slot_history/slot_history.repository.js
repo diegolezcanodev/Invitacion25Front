@@ -18,6 +18,7 @@ async function getOne(idSlot) {
 }
 
 async function createOne(data) {
+  console.log('📦 Repository received:', data);
   const newSlot = await prisma.slot_history.create({
     data: {
         name: data.name,

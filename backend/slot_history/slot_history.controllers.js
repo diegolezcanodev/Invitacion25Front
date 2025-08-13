@@ -29,6 +29,9 @@ export const getSlot_historyById = async (req, res, next) => {
 };
 
 export const createSlot_history = async (req, res) => {
+  console.log('📥 Received in controller:', req.body);
+    console.log('📥 Name field:', req.body.name);
+    console.log('📥 Credits field:', req.body.credits);
   const newSlot_history = await createOne(req.body);
   res.status(201).json(newSlot_history);
 };
